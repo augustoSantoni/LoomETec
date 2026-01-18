@@ -32,12 +32,6 @@ LoomETec es un telar automático desarrollado en el marco del taller AeroGlobETe
 
 ---
 
-## 💝 Motivación
-
-Este proyecto nace como homenaje a mi abuela, quien dedicó su vida a tejer y donar sus creaciones. Tras su fallecimiento, surgió la idea de perpetuar su legado mediante un telar automático que combine tecnología e impacto social.
-
----
-
 ## 🔧 Componentes del Sistema
 
 ### Software
@@ -60,7 +54,7 @@ Este proyecto nace como homenaje a mi abuela, quien dedicó su vida a tejer y do
 
 ### 1. Entorno de Desarrollo (PlatformIO)
 
-\`\`\`bash
+```bash
 # Instalar Visual Studio Code
 # Luego instalar la extensión PlatformIO
 
@@ -70,13 +64,13 @@ cd LoomETec
 
 # Abrir el proyecto en VS Code
 code .
-\`\`\`
+```
 
 ### 2. Configuración del ESP32
 
-El archivo \`platformio.ini\` ya está configurado:
+El archivo `platformio.ini` ya está configurado:
 
-\`\`\`ini
+```ini
 [env:esp32doit-devkit-v1]
 platform = espressif32
 board = esp32doit-devkit-v1
@@ -86,18 +80,18 @@ lib_deps =
     knolleary/PubSubClient@^2.8
     bblanchon/ArduinoJson@^7.4.2
 monitor_speed = 115200
-\`\`\`
+```
 
 ### 3. Dependencias de Python (Editor de Trama)
 
-\`\`\`bash
+```bash
 # Instalar dependencias
 pip install tkinter pillow
 
 # En macOS, tkinter viene preinstalado con Python
 # En Linux:
 sudo apt-get install python3-tk python3-pil python3-pil.imagetk
-\`\`\`
+```
 
 ---
 
@@ -105,7 +99,9 @@ sudo apt-get install python3-tk python3-pil python3-pil.imagetk
 
 ### Descripción
 
-El **Editor de Trama** es una aplicación gráfica que permite diseñar patrones de tejido pixel por pixel. Genera archivos PNG y JSON que pueden ser interpretados por el sistema del telar.
+Un telar de Jacquard era una máquina de tejido mecánica que utiliza un sistema de tarjetas perforadas (las cuales intercambiaríamos por código) para controlar individualmente los hilos de urdimbre, lo que permite crear patrones complejos y detallados de forma automática.
+
+El Editor de Trama es una aplicación gráfica que permite diseñar patrones de tejido píxel por píxel Genera archivos PNG y JSON. Sería la herramienta con la que podremos crear los patrones a subir al telar.
 
 ### Características Principales
 
@@ -118,22 +114,22 @@ El **Editor de Trama** es una aplicación gráfica que permite diseñar patrones
 
 ### Uso del Editor
 
-\`\`\`bash
+```bash
 # Ejecutar el editor
 cd TelarSimple  # o la carpeta donde esté Editor-Trama.py
 python3 Editor-Trama.py
-\`\`\`
+```
 
 #### Controles Principales
 
 **Atajos de Teclado:**
-- \`Cmd/Ctrl + Z\`: Deshacer
-- \`Cmd/Ctrl + Y\`: Rehacer
-- \`Cmd/Ctrl + L\`: Limpiar lienzo
-- \`Cmd/Ctrl + Plus\`: Agrandar lienzo
-- \`Cmd/Ctrl + Minus\`: Reducir lienzo
-- \`Cmd/Ctrl + S\`: Guardar PNG
-- \`Cmd/Ctrl + J\`: Guardar JSON
+- `Cmd/Ctrl + Z`: Deshacer
+- `Cmd/Ctrl + Y`: Rehacer
+- `Cmd/Ctrl + L`: Limpiar lienzo
+- `Cmd/Ctrl + Plus`: Agrandar lienzo
+- `Cmd/Ctrl + Minus`: Reducir lienzo
+- `Cmd/Ctrl + S`: Guardar PNG
+- `Cmd/Ctrl + J`: Guardar JSON
 
 **Ratón:**
 - **Clic izquierdo**: Dibujar con color seleccionado
@@ -156,7 +152,7 @@ python3 Editor-Trama.py
 3. Clic en **"Generar Cuadrícula"**
 4. Clic en los cuadros para activar/desactivar píxeles
 5. **"Guardar Pincel"** y asignar nombre
-6. Se guarda como archivo \`.brush\` para reutilizar
+6. Se guarda como archivo `.brush` para reutilizar
 
 #### Replicar Diseño
 
@@ -178,7 +174,7 @@ Para crear patrones repetitivos:
 - Incluye dimensiones del patrón
 - Compatible con el sistema de control
 
-\`\`\`json
+```json
 {
   "dimensiones": [29, 29],
   "datos": [
@@ -187,7 +183,7 @@ Para crear patrones repetitivos:
     ...
   ]
 }
-\`\`\`
+```
 
 ---
 
@@ -210,7 +206,7 @@ Para crear patrones repetitivos:
 
 #### Motor PAP (Caladores)
 
-\`\`\`
+```
 ESP32          DVR8825
 GPIO 25   -->  STEP
 GPIO 26   -->  DIR
@@ -222,11 +218,11 @@ A+/A-      -->  Bobina A
 B+/B-      -->  Bobina B
 
 Fuente 12V -->  VMOT/GND (DVR8825)
-\`\`\`
+```
 
 #### Motores DC (Lanzadera/Plegador)
 
-\`\`\`
+```
 ESP32          L298N (Puente H)
 GPIO 18   -->  IN1
 GPIO 19   -->  IN2
@@ -237,11 +233,11 @@ OUT1/OUT2 -->  Motor 1
 OUT3/OUT4 -->  Motor 2
 
 Fuente 12V -->  12V/GND (L298N)
-\`\`\`
+```
 
 #### Sensores Fin de Carrera
 
-\`\`\`
+```
 ESP32          Fin de Carrera
 GPIO 32   -->  Fin carrera 1 (COM)
 GPIO 33   -->  Fin carrera 2 (COM)
@@ -249,11 +245,11 @@ GPIO 34   -->  Fin carrera 3 (COM)
 GPIO 35   -->  Fin carrera 4 (COM)
 
 GND       -->  NO/NC (según configuración)
-\`\`\`
+```
 
 ### Configuración de Pines (Ejemplo)
 
-\`\`\`cpp
+```cpp
 // Pines Motores PAP
 #define STEP_PIN 25
 #define DIR_PIN 26
@@ -269,7 +265,7 @@ GND       -->  NO/NC (según configuración)
 #define FIN_CARRERA_2 33
 #define FIN_CARRERA_3 34
 #define FIN_CARRERA_4 35
-\`\`\`
+```
 
 ### Alimentación
 
@@ -292,7 +288,7 @@ Los modelos 3D se encuentran en la carpeta del proyecto:
 
 ### Parámetros de Impresión Recomendados
 
-\`\`\`
+```
 Material: PLA o PETG
 Altura de capa: 0.2mm
 Relleno: 20-30%
@@ -300,7 +296,7 @@ Soportes: Según pieza
 Velocidad: 50-60 mm/s
 Temperatura: 200-210°C (PLA)
 Cama: 60°C
-\`\`\`
+```
 
 ### Piezas Críticas
 
@@ -321,7 +317,7 @@ Cama: 60°C
 
 ### 1. Preparación
 
-\`\`\`bash
+```bash
 # Compilar y subir código al ESP32
 pio run -t upload
 
@@ -329,11 +325,11 @@ pio run -t upload
 node-red
 
 # Abrir navegador en http://localhost:1880
-\`\`\`
+```
 
 ### 2. Diseño del Patrón
 
-1. Ejecutar \`Editor-Trama.py\`
+1. Ejecutar `Editor-Trama.py`
 2. Crear diseño
 3. Exportar JSON
 4. Cargar JSON en Node-RED
@@ -348,12 +344,6 @@ node-red
 ---
 
 ## 📚 Recursos Adicionales
-
-### Enlaces del Proyecto
-
-- [Código Final](https://github.com/augustoSantoni/LoomETec)
-- Animación Telar Digital
-- Videos Sistema Electrónico
 
 ### Documentación Técnica
 
@@ -370,31 +360,9 @@ node-red
 
 ---
 
-## 🔮 Mejoras Futuras
-
-- **Caladores más complejos** para patrones avanzados
-- **Interfaz web** con Paho MQTT
-- **Control independiente** por hilo
-- **Sistema de reconocimiento** de errores
-- **Base de datos** de patrones
-
----
-
 ## 📄 Licencia
 
-Este proyecto se desarrolla con fines educativos y sociales en el marco de ETec.
-
----
-
-## 🙏 Agradecimientos
-
-Este proyecto está dedicado a la memoria de mi abuela, cuyo legado de amor y generosidad inspiró esta creación.
-
-**Agradecimientos especiales:**
-- ETec y taller AeroGlobETec
-- Profesora Patricia Furci
-- Ivo Giovarruscio (co-desarrollador)
-- Comunidad maker y open source
+Este proyecto se desarrolla con fines educativos y sociales en el marco de ETec (Escuela Técnica de la Universidad de Mendoza).
 
 ---
 
@@ -403,6 +371,3 @@ Este proyecto está dedicado a la memoria de mi abuela, cuyo legado de amor y ge
 - **Augusto Santoni** - a.santoni@alumno.etec.um.edu.ar
 - **Ivo Giovarruscio** - i.giovarruscio@alumno.etec.um.edu.ar
 
----
-
-*"Tejiendo tecnología con propósito social"* 🧶🤖
