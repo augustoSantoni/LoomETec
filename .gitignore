@@ -1,4 +1,32 @@
-TelarSimple/Video.mov
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Videos pesados
 *.mov
-TelarSimple/Video.mov
-*.mov
+*.mp4
+*.avi
+*.mkv
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+venv/
+env/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Otros
+*.log
+.cache/
