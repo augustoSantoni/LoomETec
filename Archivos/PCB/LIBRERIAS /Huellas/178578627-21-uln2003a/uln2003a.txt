@@ -1,0 +1,9 @@
+﻿"Symbol";"Value";"Unit";
+"TraceParts.PartNumber";"33-15012020-071155";"";
+"REFERENCE";"ULN2003A";"";
+"TraceParts.PartTitle";"Integrated Circuit Dual-In-Line Packages - ULN2003A";"";
+"TraceParts.InstanceId";"33-15012020-071155D76SWPGSS4GMUQZRJDVHAJMRJ";"";
+"SUPPLIER";"STMicroelectronics";"";
+"DESIGN";"Integrated Circuit Dual-In-Line Packages - ULN2003A";"";
+"TraceParts.PartVersion";"1.1.3";"";
+"TraceParts.PartLanguage";"en";"";

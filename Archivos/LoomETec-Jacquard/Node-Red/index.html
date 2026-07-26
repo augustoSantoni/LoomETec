@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOOM ETEC - Control de Telar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --verde: #6b8c7e; --naranja: #f29c2e; --rojo: #f2551d; --rosa: #f16e64;
+            --beige: #e6b68b; --fondo: #f5f5f5; --blanco: #ffffff; --texto: #333;
+        }
+        body { font-family: 'Nunito', sans-serif; background: linear-gradient(135deg, var(--fondo), #e0e0e0); color: var(--texto); min-height: 100vh; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .header { background: white; padding: 2.2rem; border-radius: 16px; box-shadow: 0 4px 16px rgba(0,0,0,0.08); text-align: center; margin-bottom: 2rem; }
+        .header h1 { font-size: 3rem; font-weight: 800; color: var(--verde); }
+        .grid { display: grid; gap: 1.6rem; }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        .card { background: white; border-radius: 14px; padding: 1.8rem; box-shadow: 0 3px 14px rgba(0,0,0,0.07); }
+        .card-title { font-size: 1.45rem; font-weight: 700; color: var(--verde); margin-bottom: 1.3rem; border-bottom: 3px solid var(--beige); padding-bottom: 0.7rem; }
+        button { width: 100%; padding: 1rem; border: none; border-radius: 10px; color: white; font-weight: 700; cursor: pointer; transition: all 0.18s; }
+        button:hover { opacity: 0.92; transform: translateY(-1px); }
+        .btn-start { background: var(--verde); } .btn-stop { background: var(--rojo); } .btn-wifi { background: var(--naranja); } .btn-upload { background: var(--rosa); }
+        .status-value { font-size: 5.2rem; font-weight: 800; color: var(--verde); text-align: center; }
+        input[type=text], input[type=password] { width: 100%; padding: 0.85rem; margin-bottom: 1rem; border: 2px solid var(--beige); border-radius: 8px; }
+        .file-area { border: 2px dashed var(--beige); border-radius: 10px; padding: 2rem; text-align: center; cursor: pointer; background: #fdfaf7; transition: all 0.2s; }
+        .file-area:hover { border-color: var(--verde); background: #f5fbf8; }
+        .file-name { margin-top: 1rem; color: var(--verde); font-weight: 600; }
+        .notification { position: fixed; top: 16px; right: 16px; padding: 1rem 1.6rem; border-radius: 10px; color: white; z-index: 1000; box-shadow: 0 4px 16px rgba(0,0,0,0.25); animation: appear 0.35s; }
+        @keyframes appear { from { transform: translateX(120%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .success { background: var(--verde); } .error { background: var(--rojo); }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>LOOM ETEC</h1>
+        <p>Control y monitoreo del telar</p>
+    </div>
+    <div class="grid">
+        <div class="card">
+            <h2 class="card-title">Control de tejido</h2>
+            <button class="btn-start" onclick="startLoom()">▶ Iniciar</button>
+            <button class="btn-stop" onclick="stopLoom()" style="margin-top:0.5rem;">■ Detener</button>
+        </div>
+        <div class="card">
+            <h2 class="card-title">Estado actual</h2>
+            <div class="status-value" id="vueltas">0</div>
+            <div style="text-align:center; color:#666;">Vueltas completadas</div>
+        </div>
+        <div class="card">
+            <h2 class="card-title">Configuración WiFi</h2>
+            <input type="text" id="ssid" placeholder="Nombre de red (SSID)">
+            <input type="password" id="password" placeholder="Contraseña">
+            <button class="btn-wifi" onclick="saveWifi()" style="margin-top:0.5rem;">Guardar WiFi</button>
+        </div>
+        <div class="card">
+            <h2 class="card-title">Cargar patrón</h2>
+            <label for="patternFile">
+                <div class="file-area" id="dropZone">
+                    Arrastra tu archivo .json aquí<br>o haz clic para seleccionar
+                </div>
+            </label>
+            <input type="file" id="patternFile" accept=".json" style="display:none;">
+            <div id="selectedFile" style="text-align:center; margin-top:0.5rem; color:#666;">Ningún archivo seleccionado</div>
+            <button class="btn-upload" onclick="uploadPattern()" style="margin-top:0.5rem;">Subir patrón al telar</button>
+        </div>
+    </div>
+</div>
+<script>
+const API_BASE = 'http://100.85.122.76:1880';
+
+function notify(msg, type = 'success') {
+    const n = document.createElement('div');
+    n.className = 'notification';
+    n.style.background = type === 'success' ? '#6b8c7e' : '#f2551d';
+    n.textContent = msg;
+    document.body.appendChild(n);
+    setTimeout(() => n.remove(), 3000);
+}
+
+async function fetchTurns() {
+    try {
+        const r = await fetch(`${API_BASE}/api/vueltas`);
+        if (!r.ok) throw new Error('No se pudo obtener vueltas');
+        const d = await r.json();
+        document.getElementById('vueltas').textContent = d.payload ?? 0;
+    } catch (e) {
+        console.warn('Error polling vueltas:', e);
+    }
+}
+setInterval(fetchTurns, 2000);
+fetchTurns();
+
+async function startLoom() {
+    try {
+        const r = await fetch(`${API_BASE}/api/empezar`, { method: 'POST' });
+        notify(r.ok ? '🟢 Telar iniciado' : '❌ Error al iniciar', r.ok ? 'success' : 'error');
+    } catch {
+        notify('❌ Error de conexión', 'error');
+    }
+}
+
+async function stopLoom() {
+    try {
+        const r = await fetch(`${API_BASE}/api/parar`, { method: 'POST' });
+        notify(r.ok ? '🔴 Telar detenido' : '❌ Error al detener', r.ok ? 'success' : 'error');
+    } catch {
+        notify('❌ Error de conexión', 'error');
+    }
+}
+
+async function saveWifi() {
+    const ssid = document.getElementById('ssid').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    if (!ssid || !pass) return notify('⚠️ Completa ambos campos', 'error');
+
+    try {
+        const r = await fetch(`${API_BASE}/api/config/red`, {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ssid, password: pass})
+        });
+        notify(r.ok ? '✅ WiFi guardada' : '❌ Error al guardar WiFi', r.ok ? 'success' : 'error');
+    } catch {
+        notify('❌ Error de conexión', 'error');
+    }
+}
+
+const fileInput = document.getElementById('patternFile');
+const dropZone = document.getElementById('dropZone');
+const fileNameDisplay = document.getElementById('selectedFile');
+
+dropZone.addEventListener('click', () => fileInput.click());
+
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => {
+    dropZone.addEventListener(evt, e => e.preventDefault());
+});
+
+dropZone.addEventListener('dragover', () => dropZone.style.borderColor = '#6b8c7e');
+dropZone.addEventListener('dragleave', () => dropZone.style.borderColor = '#ddd');
+dropZone.addEventListener('drop', e => {
+    const file = e.dataTransfer.files[0];
+    if (file?.name.toLowerCase().endsWith('.json')) {
+        fileInput.files = e.dataTransfer.files;
+        fileNameDisplay.textContent = file.name;
+    } else {
+        notify('⚠️ Solo archivos .json', 'error');
+    }
+    dropZone.style.borderColor = '#ddd';
+});
+
+fileInput.addEventListener('change', () => {
+    const file = fileInput.files[0];
+    fileNameDisplay.textContent = file ? file.name : 'Ningún archivo seleccionado';
+});
+
+async function uploadPattern() {
+    const file = fileInput.files[0];
+    if (!file) return notify('⚠️ Selecciona un archivo .json', 'error');
+    if (!file.name.toLowerCase().endsWith('.json')) return notify('⚠️ Solo .json permitidos', 'error');
+
+    const formData = new FormData();
+    formData.append('patron', file);
+
+    try {
+        const r = await fetch(`${API_BASE}/api/config/patron`, {
+            method: 'POST',
+            body: formData
+        });
+        const data = await r.json().catch(() => ({}));
+        if (r.ok) {
+            notify('🟢 Patrón subido correctamente', 'success');
+            fileInput.value = '';
+            fileNameDisplay.textContent = 'Ningún archivo seleccionado';
+        } else {
+            notify(`❌ ${data.error || 'Error al subir'} (${r.status})`, 'error');
+        }
+    } catch (err) {
+        notify(`❌ Error: ${err.message}`, 'error');
+    }
+}
+</script>
+</body>
+</html>

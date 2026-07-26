@@ -1,0 +1,381 @@
+(footprint "DRV8825-PT"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Pololu Breakout 16-pin 15.2x20.3mm 0.6x0.8")
+	(tags "Pololu Breakout")
+	(property "Reference" "A1"
+		(at -2.66 18.89 270)
+		(layer "F.SilkS")
+		(uuid "a74c4d64-b828-41ef-a1ed-472e7f76f6d0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Pololu_Breakout_DRV8825"
+		(at -2.66 7.89 270)
+		(layer "F.Fab")
+		(uuid "7a24a872-1764-4003-9bcf-374733d82572")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Datasheet" "https://www.pololu.com/product/2982"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "971bf2ea-a8a9-4bfb-bf56-a33055c99ce5")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Description" "Pololu Breakout Board, Stepper Driver DRV8825"
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "f15cec2a-0236-4445-a7a1-b46fb62674c5")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property ki_fp_filters "Pololu*Breakout*15.2x20.3mm*")
+	(sheetname "/")
+	(sheetfile "LoomETec.kicad_sch")
+	(attr through_hole)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -1.4 -1.4)
+		(end -1.4 0)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "053a274e-9b17-4ec3-a5d9-9b1840f4f0a1")
+	)
+	(fp_line
+		(start -1.4 1.27)
+		(end -1.4 19.18)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "c1ac0cda-88dc-4cbf-ac34-6e7c9f939e8c")
+	)
+	(fp_line
+		(start -1.4 19.18)
+		(end 14.1 19.18)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "f99fb52c-dcfa-4ffe-bd59-37e21c71415e")
+	)
+	(fp_line
+		(start 0 -1.4)
+		(end -1.4 -1.4)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "9b87eda1-50fa-4a97-95d4-746fc17abf1a")
+	)
+	(fp_line
+		(start 1.27 -1.4)
+		(end 1.27 1.27)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "2d202660-3159-482b-8d25-d236c11c9ede")
+	)
+	(fp_line
+		(start 1.27 1.27)
+		(end -1.4 1.27)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "392468f2-87cc-4ba7-b222-af05d331bb28")
+	)
+	(fp_line
+		(start 1.27 1.27)
+		(end 1.27 19.18)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "535281e1-0544-4a41-9832-21b3b127d949")
+	)
+	(fp_line
+		(start 11.43 -1.4)
+		(end 11.43 19.18)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "338c24c0-ab95-426a-8b81-ee6676cfefa7")
+	)
+	(fp_line
+		(start 14.1 -1.4)
+		(end 1.27 -1.4)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "b7263c0f-5ea7-4725-9f72-81413ec30a97")
+	)
+	(fp_line
+		(start 14.1 19.18)
+		(end 14.1 -1.4)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "4c1dc67d-6a02-4431-965e-53c54d00748f")
+	)
+	(fp_line
+		(start -1.53 -1.52)
+		(end -1.53 19.3)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "c83ffaa2-5ad6-42bf-a349-8c909fa4e842")
+	)
+	(fp_line
+		(start -1.53 -1.52)
+		(end 14.21 -1.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "8641013c-6543-4f59-a7fc-a941a17a7669")
+	)
+	(fp_line
+		(start 14.21 19.3)
+		(end -1.53 19.3)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "a9b6599a-60e9-450b-9e90-10293f7bd295")
+	)
+	(fp_line
+		(start 14.21 19.3)
+		(end 14.21 -1.52)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(layer "F.CrtYd")
+		(uuid "ec505448-09b5-4dd4-b199-3c8014a8c030")
+	)
+	(fp_line
+		(start -1.27 0)
+		(end 0 -1.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "3f6683f6-8ffd-4e80-9fa0-db2ad8aa5520")
+	)
+	(fp_line
+		(start -1.27 19.05)
+		(end -1.27 0)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "82b77d64-442b-41d4-a4f0-e47478d5735a")
+	)
+	(fp_line
+		(start 0 -1.27)
+		(end 13.97 -1.27)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2d4b6591-b511-4ed4-8f61-1ada08351086")
+	)
+	(fp_line
+		(start 13.97 -1.27)
+		(end 13.97 19.05)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "70c712ff-6857-40e9-a15e-9aefe6bcfc6b")
+	)
+	(fp_line
+		(start 13.97 19.05)
+		(end -1.27 19.05)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(layer "F.Fab")
+		(uuid "2051f131-94e1-49d0-a35d-7cdb83415840")
+	)
+	(pad "1" thru_hole rect
+		(at 0 0)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "ccaf1a9a-e2e9-417f-aa0b-c1f9eddbf91b")
+	)
+	(pad "2" thru_hole oval
+		(at 0 2.54)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "85b6c351-ef0b-4084-b747-19c80b1050a3")
+	)
+	(pad "3" thru_hole oval
+		(at 0 5.08)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "fefe181d-791a-4667-a8bd-8444d289543f")
+	)
+	(pad "4" thru_hole oval
+		(at 0 7.62)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "9693b07d-7923-4c02-90b7-3d4fe9112011")
+	)
+	(pad "5" thru_hole oval
+		(at 0 10.16)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "5bc34c6f-7970-431b-a177-d7b31f949aca")
+	)
+	(pad "6" thru_hole oval
+		(at 0 12.7)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "e5ce57a5-7afb-4d28-9e3c-9eb6f7a0c908")
+	)
+	(pad "7" thru_hole oval
+		(at 0 15.24)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "5de90c01-6528-4a70-b670-35a74b9b833b")
+	)
+	(pad "8" thru_hole oval
+		(at 0 17.78)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "65d172c4-fa3a-46bc-b15b-76e1626b08ca")
+	)
+	(pad "13" thru_hole oval
+		(at 12.7 7.62)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "8ceb7550-8294-4cba-9398-f8e47d527b14")
+	)
+	(pad "14" thru_hole oval
+		(at 12.7 5.08)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "5e7671f7-cf26-4bac-ac75-18421084e0d5")
+	)
+	(pad "15" thru_hole oval
+		(at 12.7 2.54)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "714d2d6c-2f0b-42fc-b8a3-a2de21112a55")
+	)
+	(pad "16" thru_hole oval
+		(at 12.7 0)
+		(size 1.6 1.6)
+		(drill 0.8)
+		(layers "*.Cu" "*.Mask")
+		(remove_unused_layers no)
+		(uuid "5e16edfa-e19e-4140-904e-a684f0793539")
+	)
+	(embedded_fonts no)
+	(model "${KICAD9_3DMODEL_DIR}/Module.3dshapes/Pololu_Breakout-16_15.2x20.3mm.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(model "/Users/augustosantoni/Documents/KiCad/LIBRERIAS /3d/DRV8825 STEPPER MOTOR DRIVER CARRIER--3DModel-STEP-1.STEP"
+		(offset
+			(xyz 6 -9 -0.5)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 90 180 -0)
+		)
+	)
+	(model "/Volumes/Chopo/Proyectos/Telar/Archivos/PCB/LIBRERIAS /Archivos 3d/DRV8825 STEPPER MOTOR DRIVER CARRIER--3DModel-STEP-1.STEP"
+		(offset
+			(xyz 6.5 -9 0.5)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz -90 -0 -0)
+		)
+	)
+)

@@ -1,0 +1,332 @@
+[
+    {
+        "id": "tab_principal",
+        "type": "tab",
+        "label": "Control Telar Simple",
+        "disabled": false,
+        "info": "Flow simplificado para telar básico automatizado"
+    },
+    {
+        "id": "mqtt_broker",
+        "type": "mqtt-broker",
+        "name": "Mosquitto Local",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": 15,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "http_empezar",
+        "type": "http in",
+        "z": "tab_principal",
+        "name": "API Iniciar",
+        "url": "/api/empezar",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "process_empezar",
+                "http_response_ok"
+            ]
+        ]
+    },
+    {
+        "id": "process_empezar",
+        "type": "function",
+        "z": "tab_principal",
+        "name": "Preparar empezar",
+        "func": "msg.topic = 'empezar';\nmsg.payload = '1';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 100,
+        "wires": [
+            [
+                "mqtt_empezar"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_empezar",
+        "type": "mqtt out",
+        "z": "tab_principal",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker",
+        "x": 650,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "http_parar",
+        "type": "http in",
+        "z": "tab_principal",
+        "name": "API Parar",
+        "url": "/api/parar",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 180,
+        "wires": [
+            [
+                "process_parar",
+                "http_response_ok"
+            ]
+        ]
+    },
+    {
+        "id": "process_parar",
+        "type": "function",
+        "z": "tab_principal",
+        "name": "Preparar parar",
+        "func": "msg.topic = 'parar';\nmsg.payload = '1';\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 180,
+        "wires": [
+            [
+                "mqtt_parar"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_parar",
+        "type": "mqtt out",
+        "z": "tab_principal",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker",
+        "x": 650,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "http_wifi",
+        "type": "http in",
+        "z": "tab_principal",
+        "name": "API WiFi",
+        "url": "/api/config/red",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 260,
+        "wires": [
+            [
+                "process_wifi"
+            ]
+        ]
+    },
+    {
+        "id": "process_wifi",
+        "type": "function",
+        "z": "tab_principal",
+        "name": "Procesar WiFi",
+        "func": "if (!msg.payload.ssid || !msg.payload.password) {\n    msg.payload = {error: 'Faltan campos'};\n    msg.statusCode = 400;\n    return [null, msg];\n}\nmsg.topic = 'config/red';\nmsg.payload = {ssid: msg.payload.ssid, password: msg.payload.password};\nreturn [msg, null];",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 260,
+        "wires": [
+            [
+                "mqtt_config_red",
+                "http_response_ok"
+            ],
+            [
+                "http_response_error"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_config_red",
+        "type": "mqtt out",
+        "z": "tab_principal",
+        "name": "",
+        "topic": "",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "mqtt_broker",
+        "x": 650,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "http_response_ok",
+        "type": "http response",
+        "z": "tab_principal",
+        "name": "Respuesta OK",
+        "statusCode": "",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 650,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "http_response_error",
+        "type": "http response",
+        "z": "tab_principal",
+        "name": "Respuesta Error",
+        "statusCode": "",
+        "headers": {
+            "Content-Type": "application/json"
+        },
+        "x": 660,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "http_vueltas",
+        "type": "http in",
+        "z": "tab_principal",
+        "name": "API Vueltas",
+        "url": "/api/vueltas",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 360,
+        "wires": [
+            [
+                "get_vueltas"
+            ]
+        ]
+    },
+    {
+        "id": "get_vueltas",
+        "type": "function",
+        "z": "tab_principal",
+        "name": "Leer vueltas",
+        "func": "msg.payload = flow.get('vueltas') || 0;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 360,
+        "wires": [
+            [
+                "format_vueltas"
+            ]
+        ]
+    },
+    {
+        "id": "format_vueltas",
+        "type": "template",
+        "z": "tab_principal",
+        "name": "Formato JSON",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{\"payload\": {{payload}}}",
+        "output": "str",
+        "x": 560,
+        "y": 360,
+        "wires": [
+            [
+                "http_response_ok"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_vueltas_in",
+        "type": "mqtt in",
+        "z": "tab_principal",
+        "name": "Recibir Vueltas",
+        "topic": "vuelta",
+        "qos": "0",
+        "datatype": "auto",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 160,
+        "y": 460,
+        "wires": [
+            [
+                "save_vueltas"
+            ]
+        ]
+    },
+    {
+        "id": "save_vueltas",
+        "type": "change",
+        "z": "tab_principal",
+        "name": "Guardar en flow",
+        "rules": [
+            {
+                "t": "set",
+                "p": "vueltas",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 380,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    }
+]
