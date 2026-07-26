@@ -579,32 +579,3 @@ String password = "PASSWORD_EXACTA";
 | `parar` | `"1"` | Detener tejido |
 | `config/red` | JSON: `{"ssid": "...", "password": "..."}` | Configurar WiFi |
 | `config/patron` | JSON: `{"filename": "...", "content": "{...}"}` | Cargar patrón (Jacquard) |
-
----
-
-## 📚 Recursos Adicionales
-
-### Documentación Técnica
-
-- [Datasheet ESP32](https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf)
-- [PlatformIO Docs](https://docs.platformio.org/)
-- [Node-RED Guide](https://nodered.org/docs/)
-
-### Referencias
-
-1. R. Jander's personal website - https://r.jander.me.uk/
-2. Textalks YouTube channel - https://www.youtube.com/@textalks
-3. Picturing Homeric Weaving - https://chs.harvard.edu/
-4. LEGO Mindstorms NXT Loom - https://youtu.be/IPIJsdvDjsc
-
----
-
-## 📄 Licencia
-
-Este proyecto se desarrolla con fines educativos y sociales en el marco de ETec (Escuela Técnica de la Universidad de Mendoza).
-
----
-
-## 📧 Contacto
-
-- **Augusto Santoni** - a.santoni@alumno.etec.um.edu.ar
